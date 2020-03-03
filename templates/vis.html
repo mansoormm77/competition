@@ -1,0 +1,105 @@
+<html>
+<head>
+    <script data-require="jquery@1.11.3" data-semver="1.11.3" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<style>
+#date1{
+  visibility: hidden;
+}
+body{
+background-color:skyblue;
+}
+table,td{
+margin-top:7%;
+margin-left:auto;margin-right:auto;
+ border: 1px solid black;
+}
+
+div{
+  margin: auto;
+  width: 30%;
+  border: 3px solid blue;
+  padding: 10px;
+  text-align: center
+}
+</style>
+
+<script type="text/javascript">
+    function ShowHideDiv() {
+        var chkday = document.getElementById("day");
+		var chkweek = document.getElementById("week");
+		var chkyear = document.getElementById("year");
+		var chkyear = document.getElementById("loc");
+        
+		var datepick = document.getElementById("datepick");
+		var weekpick = document.getElementById("weekpick");
+        var yearpick = document.getElementById("yearpick");
+
+        datepick.style.display = chkday.checked ? "block" : "none";
+        weekpick.style.display = chkweek.checked ? "block" : "none";
+        yearpick.style.display = chkyear.checked ? "block" : "none";
+        
+
+
+    
+	}
+</script>
+<script>
+$(function() {
+  $('#loc').on('change', function() {
+    $(this).parents('form').submit();
+  });
+});
+</script>
+
+</head>
+<body><h1 style="padding: 10px;text-align: center">Number of Clicks on Home Page</h1>
+<form action="{% url 'my_func' %}">
+<table>
+<tr>
+<td>
+<input type="radio" id="day" name="filter" value="day" onclick="ShowHideDiv()">
+<label for="day">Day</label>
+</td>
+<td>
+<input type="date" style="display: none" id="datepick" name="day">
+</td>
+</tr>
+<tr>
+<td>
+<input type="radio" id="week" name="filter" value="week" onclick="ShowHideDiv()">
+<label for="week">week</label>
+</td>
+<td>
+<input type="week" id="weekpick" name="week"  style="display: none">
+</td>
+</tr>
+<tr>
+<td>
+<input type="radio" id="year" name="filter" value="year" onclick="ShowHideDiv()">
+<label for="year">year</label>
+</td>
+<td>
+<input type="number" name="year" id="yearpick" min="1900" max="2099" step="1" style="display: none"/>
+</td>
+</tr>
+<tr>
+<td>
+<input type="radio" id="loc" name="filter" value="loc" onclick="ShowHideDiv()">
+<label for="week">Location</label>
+</td>
+<td>
+<select name="loc">
+{% for name in list_location %}
+   <option name="loc" value="{{name}}">{{name|title}}</option>
+{% endfor %}
+</select>
+
+</td>
+</tr>
+</table>
+<input type="submit" value="Check Clicks" style=" position: absolute;left: 640px;margin-top:20px;"/>
+<br><br><br><div>Total clicks are: {{count}}</div>
+</body>
+
+</html>
