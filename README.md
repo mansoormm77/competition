@@ -1,3 +1,3 @@
 # competition
-Django website for data visualization
+Django website for data visualization.
 Visualization page "visualize.html" 
