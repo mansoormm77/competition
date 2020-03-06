@@ -59,7 +59,7 @@ def filt(request):
                     if(years==year):
                         count=count+1
                         
-                        
+          #checks if user wants list of location out of total location the website has been access from              
         if data=='loc':
             with open('data.json') as json_file: 
                 data_main = json.load(json_file)
@@ -69,6 +69,7 @@ def filt(request):
                     if(temp not in list_location):
                         list_location.append(temp)
          
+        #checks if user wants to check clicks from a particular location
     if 'loc' in request.GET and request.GET['loc']!='':
             loca=request.GET['loc']
             with open('data.json') as json_file: 
