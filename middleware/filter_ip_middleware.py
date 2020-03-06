@@ -3,7 +3,7 @@ from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
 from datetime import datetime
 import json
-
+from django.contrib.gis.geoip import GeoIP
 #custom middleware used to check request and filter it according to our needs
 
 class FilterIPMiddleware(MiddlewareMixin):
@@ -25,8 +25,10 @@ class FilterIPMiddleware(MiddlewareMixin):
                 if method_type == 'GET':
                     data_method = request.GET.copy()
                 timestamp=datetime.now().date()
+                g = GeoIP()
+                location=g.city(ip)
                 #all required data is collected in a dictionary
-                data={"path_info":path_info, "browser_info":browser_info, "request_data":data_method, "method":method_type, "visited_by":username, "location":"mumbai", "ip_address":ip,"date":timestamp} 
+                data={"path_info":path_info, "browser_info":browser_info, "request_data":data_method, "method":method_type, "visited_by":username, "location":location, "ip_address":ip,"date":timestamp} 
                 
                 #previous data from json file is loaded in order to append new data
                 with open('data.json') as json_file: 
